@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <script type="text/javascript"  src='/bower_components/jquery/dist/jquery.js'></script>
+  <script type="text/javascript"   src='/bower_components/bootstrap/dist/js/bootstrap.js'></script>
+
+  <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css"></link>
+
+</head>
+<body>
+
+<div class="container">
+  <% include ../header/header.ejs %>
+    <%- content %>
+    <br/>
+    <hr>
+       <% include ../footer/footer.ejs %>  
+
+     
+        </div>
+</body>
+
+</html>

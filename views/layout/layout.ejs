@@ -6,12 +6,21 @@
   <script type="text/javascript"   src='/bower_components/bootstrap/dist/js/bootstrap.js'></script>
 
   <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css"></link>
-
+ <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"></link>
 </head>
 <body>
 
 <div class="container">
   <% include ../header/header.ejs %>
+<%- messages('message', locals) %> 
+ <% if ( typeof errors !== 'undefined') { %>
+   
+  <% errors.forEach(function(error) { %>
+           <div class="alert alert-danger"><%= error.msg%></div>
+            <% }) %>
+<% } %>
+
+
     <%- content %>
     <br/>
     <hr>

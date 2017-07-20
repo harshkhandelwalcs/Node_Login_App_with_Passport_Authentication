@@ -3,7 +3,13 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('home/index', { title: 'Welcome In My APP' });
+if(req.user){
+      res.redirect('/welcome');
+}else{
+      res.render('home/index', { title: 'Welcome In My APP' });
+}
+
+
 });
 
 module.exports = router;

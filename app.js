@@ -6,11 +6,19 @@ const ejs = require('ejs');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var expressValidator=require('express-validator');
+var flash=require('connect-flash');
+var session=require('express-session');
+
+var passport=require('passport');
 var dataBase = require('./configs/database/db');
 var index = require('./routes/home/index');
-
+var MongoStore = require('connect-mongo')(session)
 var login = require('./routes/login/login');
 var register = require('./routes/register/register');
+var welcome = require('./routes/welcome/welcome');
+var logout = require('./routes/logout/logout');
+
 var app = express();
 
 // view engine setup
@@ -27,11 +35,66 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Session Middleware
+app.use(session({
+    secret: 'keyboard cat',
+    saveUninitialized: false, // don't create session until something stored
+	resave: false, //don't save session if unmodified
+	store: new MongoStore({
+		url: 'mongodb://localhost:27017/login_db',
+		touchAfter: 24 * 3600 // time period in seconds
+	})
+}));
+app.use(function(req,res,next){
+    res.locals.session = req.session;
+    next();
+});
+// app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
+
+//messages middleware
+app.use(require('connect-flash')());
+app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
+
+
+//Validator middleware
+app.use(expressValidator({
+  errorFormatter: function(param, msg, value) {
+      var namespace = param.split('.')
+      , root    = namespace.shift()
+      , formParam = root;
+
+    while(namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param : formParam,
+      msg   : msg,
+      value : value
+    };
+  }
+}));
+
+//Passport config File
+require('./configs/passport/passport')(passport);
+//passport Middleware
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  app.use('*',function(req,res,next){
+  
+    res.locals.user=req.user||null;
+    next();
+  })
+
 app.use('/', index);
 app.use('/login', login);
 app.use('/register', register);
-
-
+app.use('/welcome', welcome);
+app.use('/logout', logout);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   var err = new Error('Not Found');

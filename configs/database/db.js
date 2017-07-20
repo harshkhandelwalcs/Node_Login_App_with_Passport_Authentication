@@ -1,8 +1,10 @@
 const mongoose=require('mongoose');
 
-mongoose.connect('mongodb://localhost/login_db');
+mongoose.connect('mongodb://localhost:27017/login_db');
+
 
 let db=mongoose.connection;
+
 
 db.on('error',function(){
 console.log("error");
@@ -13,4 +15,7 @@ console.log('Connected To DataBase...');
 });
 
 
-module.exports=db;
+module.exports={
+    db:db,
+    secret:'mysecret'
+}

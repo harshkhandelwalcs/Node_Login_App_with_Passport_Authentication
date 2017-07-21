@@ -14,6 +14,7 @@ var passport=require('passport');
 var dataBase = require('./configs/database/db');
 var index = require('./routes/home/index');
 var MongoStore = require('connect-mongo')(session)
+var configAuth = require('./configs/auth');
 var login = require('./routes/login/login');
 var register = require('./routes/register/register');
 var welcome = require('./routes/welcome/welcome');
@@ -93,6 +94,7 @@ require('./configs/passport/passport')(passport);
 app.use('/', index);
 app.use('/login', login);
 app.use('/register', register);
+
 app.use('/welcome', welcome);
 app.use('/logout', logout);
 // catch 404 and forward to error handler

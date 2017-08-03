@@ -12,8 +12,9 @@ module.exports = function (passport) {
     passport.use(new LocalStrategy(function (username, password, done) {
 
         //match Username
-
+               
         let query = { username: username };
+          
 
         User.findOne(query, function (err, user) {
             if (err) throw err;
@@ -51,8 +52,11 @@ console.log(token, refreshToken, profile)
         // User.findOne won't fire until we have all our data back from Google
         process.nextTick(function() {
 
+              let query={
+                       email:{$ne:profile.emails[0].value}
+              }
             // try to find the user based on their google id
-            User.findOne({ 'google.id' : profile.id }, function(err, user) {
+            User.findOne(query, function(err, user) {
                 if (err)
                     return done(err);
 
@@ -63,7 +67,7 @@ console.log(token, refreshToken, profile)
                 } else {
                     // if the user isnt in our database, create a new user
                     var newUser          = new User();
-
+                  
                     // set all of the relevant information
                     newUser.google.id    = profile.id;
                     newUser.google.token = token;

@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 var expressValidator=require('express-validator');
 var flash=require('connect-flash');
 var session=require('express-session');
-
+var nodemailer = require('nodemailer');
 var passport=require('passport');
 var dataBase = require('./configs/database/db');
 var index = require('./routes/home/index');
@@ -19,7 +19,7 @@ var login = require('./routes/login/login');
 var register = require('./routes/register/register');
 var welcome = require('./routes/welcome/welcome');
 var logout = require('./routes/logout/logout');
-
+var forgot = require('./routes/forgot/forgot');
 var app = express();
 
 // view engine setup
@@ -97,6 +97,18 @@ app.use('/register', register);
 
 app.use('/welcome', welcome);
 app.use('/logout', logout);
+app.use('/forgot',forgot);
+
+
+//  var  smtpTrans = nodemailer.createTransport('SMTP', {
+//       service: 'Gmail',
+//       auth: {
+//           user: "hkcs1995@gmail.com",
+//           pass: "qwert123@1995" 
+//       }
+//   });
+ 
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   var err = new Error('Not Found');
@@ -114,5 +126,6 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

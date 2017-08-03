@@ -61,8 +61,10 @@ router.post('/', function (req, res, next) {
           console.log(err);
         }
         user.password = hash;
-
-        user.save(function (err) {
+let query={
+  email:{$ne:user.email}
+}
+        user.save(query,function (err) {
           if (err) {
             console.log(err);
 

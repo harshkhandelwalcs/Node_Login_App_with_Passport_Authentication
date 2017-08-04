@@ -17,5 +17,5 @@ console.log('Connected To DataBase...');
 
 module.exports={
     db:db,
-    secret:'mysecret'
+    secret:'H@-rsH/'
 }

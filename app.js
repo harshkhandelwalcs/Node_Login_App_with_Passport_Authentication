@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Session Middleware
 app.use(session({
-    secret: 'keyboard cat',
+    secret: 'H@-rsH/',
     saveUninitialized: false, // don't create session until something stored
 	resave: false, //don't save session if unmodified
 	store: new MongoStore({

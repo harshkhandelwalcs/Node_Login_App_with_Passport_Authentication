@@ -1,44 +1,21 @@
 <% extend('../layout/layout') %>
-
-
-
-
- 
-
     <h1><%= title %></h1>
-    <form method="POST">
-
-
-  <div class="form-group">
-    <label for="username">Username</label>
-    <input type="text" class="form-control" name="username"  placeholder="Username">
-  </div>
-
- 
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" name="password"  placeholder="Password">
-  </div>
- 
-  
- 
-  
-
-  <button type="submit" class="btn btn-primary">Login</button>
-   <a style="float:right;" href="/forgot" >Forgot Password ?</a>
- <div class="container">
-
-    <div class="jumbotron text-center">
-
-
-
-        <p>Login or Register with:</p>
-
-        <a href="/login/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</a>
-  <a href="/login/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
-
-    </div>
-
-</div>
-
-    </form>
+        <form method="POST">
+            <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" class="form-control" name="username"  placeholder="Username">
+            </div>
+            <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" name="password"  placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a style="float:right;" href="/forgot" >Forgot Password ?</a>
+            <div class="container">
+                <div class="jumbotron text-center">
+                    <p>Login or Register with:</p>
+                    <a href="/login/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</a>
+                    <a href="/login/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+                </div>
+            </div>
+        </form>

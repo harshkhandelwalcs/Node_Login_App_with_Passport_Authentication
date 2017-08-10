@@ -3,7 +3,6 @@ var router = express.Router();
 var bcrypt = require('bcryptjs');
 /* GET register page. */
 let User = require('../../models/user');
-var authenticate = require('../../controllers/authenticate_check');
 router.get('/', function (req, res, next) {
   if (req.user) {
     res.redirect('/welcome');

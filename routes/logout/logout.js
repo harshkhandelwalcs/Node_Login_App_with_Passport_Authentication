@@ -1,12 +1,10 @@
-var express=require('express');
+var express = require('express');
 var router = express.Router();
 
-router.get('/',function(req,res,next){
+router.get('/', function (req, res, next) {
     req.logout();
+    req.flash('success', 'You are Logged out');
+    res.redirect('/login');
+});
 
-    req.flash('success','You are Logged out');
- res.redirect('/login');
-})
-
-
-module.exports=router;
+module.exports = router;
